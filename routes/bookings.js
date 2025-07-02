@@ -28,4 +28,37 @@ router.get('/', async (req, res) => {
   }
 });
 
+// GET /bookings/:bookingId
+router.get('/:bookingId', async (req, res) => {
+  const { bookingId } = req.params;
+
+  try {
+    const booking = await Booking.findById(bookingId);
+    if (!booking) {
+      return res.status(404).json({ message: 'Booking not found' });
+    }
+
+    res.status(200).json(booking);
+  } catch (err) {
+    res.status(500).json({ message: 'Server error', error: err.message });
+  }
+});
+
+// DELETE /bookings/:bookingId
+router.delete('/:bookingId', async (req, res) => {
+  const { bookingId } = req.params;
+
+  try {
+    const booking = await Booking.findByIdAndDelete(bookingId);
+    if (!booking) {
+      return res.status(404).json({ message: 'Booking not found' });
+    }
+
+    res.status(200).json({ message: 'Booking cancelled successfully' });
+  } catch (err) {
+    res.status(500).json({ message: 'Server error', error: err.message });
+  }
+});
+
+
 module.exports = router;
