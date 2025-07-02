@@ -1,9 +1,8 @@
 {
-
   
   "name": "bookings-api",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js", 
   "scripts": {
     "test": "node server.js"
   },
