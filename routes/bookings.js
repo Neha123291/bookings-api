@@ -1,30 +1,30 @@
 const express = require('express');
 const router = express.Router();
 const Booking = require('../models/Booking');
-const auth = require('../middleware/auth');
+// const auth = require('../middleware/auth'); 
 
-// POST /bookings
-router.post('/', auth, async (req, res) => {
+// Create booking
+router.post('/', async (req, res) => {
   const { eventId, seatNumber } = req.body;
   try {
     const booking = await Booking.create({
-      userId: req.user.id,
       eventId,
-      seatNumber
+      seatNumber,
+      userId: "64c1e19a203aca73b4de4d4e"
     });
-    res.status(201).json({ message: 'Booking created', booking });
+    res.status(201).json(booking);
   } catch (err) {
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ error: err.message });
   }
 });
 
-// GET /bookings
-router.get('/', auth, async (req, res) => {
+// Get all bookings
+router.get('/', async (req, res) => {
   try {
-    const bookings = await Booking.find({ userId: req.user.id });
+    const bookings = await Booking.find();
     res.status(200).json(bookings);
   } catch (err) {
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ error: err.message });
   }
 });
 
