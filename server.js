@@ -22,6 +22,8 @@ app.get('/test', (req, res) => {
 const authRoutes = require('./routes/auth');
 app.use('/auth', authRoutes);  
 
+const eventRoutes = require('./routes/events');
+app.use('/events', eventRoutes);
 
 // Start server
 const PORT = process.env.PORT || 5000;
