@@ -56,4 +56,14 @@ router.delete('/:bookingId', auth, async (req, res) => {
   }
 });
 
+// Get all bookings for a specific event (protected)
+router.get('/event/:eventId', auth, async (req, res) => {
+  try {
+    const bookings = await Booking.find({ eventId: req.params.eventId });
+    res.status(200).json(bookings);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 module.exports = router;
